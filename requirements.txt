@@ -1,5 +1,4 @@
 ##library that you require to run
 numpy
 streamlit
-sklearn
 scikit-learn
