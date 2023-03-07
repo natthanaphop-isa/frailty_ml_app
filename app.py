@@ -46,19 +46,19 @@ def main():
     CHOICES = {1: "Living Alone", 0:"Not Living Alone"}
     stat = st.selectbox("Living Status: Do you live alone?", options=list(CHOICES.keys()), format_func=format_func)
     st.write(f"You selected: {format_func(stat)}")
-    st.write(stat)
+    #st.write(stat)
 
     ##Underlying disease: Hypertension
     CHOICES = {1: "Yes", 0:"No"}
     HT = st.selectbox("Do you have Hypertension?", options=list(CHOICES.keys()), format_func=format_func)
     st.write(f"You selected: {format_func(HT)}")
-    st.write(HT)
+    #st.write(HT)
 
     ##Underlying disease: Hyperlipidemia
     CHOICES = {1: "Yes", 0:"No"}
     lipid = st.selectbox("Do you have Hyperlipidemia?", options=list(CHOICES.keys()), format_func=format_func)
     st.write(f"You selected: {format_func(lipid)}")
-    st.write(lipid)
+    #st.write(lipid)
 
     ##Anthropometric
     BMI = st.number_input("Body Mass Index (BMI: kg/m^2)")
@@ -68,12 +68,12 @@ def main():
     ##exhaustion
     CHOICES = {0:"0 = rarely or none of the time (<1 day)", 1:"1 = some or a little of the time (1–2 days)", 2: "2 = a moderate amount of the time (3–4 days)", 3:"3 =most of the time"}
     exhaustion = st.selectbox("Level of Exhaustion*", options=list(CHOICES.keys()), format_func=format_func)
-    st.write(f"You selected: {format_func(exhaustion)}")
+    #st.write(f"You selected: {format_func(exhaustion)}")
     if exhaustion <=1:
        exhaustion = 0
     else:
        exhaustion = 1
-    st.write(exhaustion)
+    #st.write(exhaustion)
     st.write("""*Using the CES–D Depression Scale, the following two statements are read. 
     (a) I felt that everything I did was an effort; 
     (b) I could not get going. 
