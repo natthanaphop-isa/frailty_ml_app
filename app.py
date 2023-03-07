@@ -7,7 +7,7 @@ import pickle
 import streamlit as st
 
 # Loading the saved model
-loaded_model = pickle.load(open('/Users/natthanaphopisaradech/Documents/Data_Hub/frailty_ml_app/logistic_model_frailty.pkl', 'rb'))
+loaded_model = pickle.load(open('/logistic_model_frailty.pkl', 'rb'))
 
 # Creating a function for Prediction 
 
