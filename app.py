@@ -74,10 +74,10 @@ def main():
     else:
        exhaustion = 1
     #st.write(exhaustion)
-    st.write("""*Using the CES–D Depression Scale, the following two statements are read. 
+    st.write("""*Using the CES–D Depression Scale, read the following two statements and answer the question. 
     (a) I felt that everything I did was an effort; 
     (b) I could not get going. 
-    The question is asked “How often in the last week did you feel this way?” 
+    Question: “How often in the last week did you feel this way?” 
     """)
 
     # code for Prediction
