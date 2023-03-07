@@ -29,7 +29,7 @@ def frailty_prediction(input_data):
     
 def main():
     # Giving a title
-    st.title('Frailty Classification Using Machine Learning Web App')
+    st.title('Frailty Classification Using Machine Learning Model - Web App')
     def format_func(option):
         return CHOICES[option]
     # Getting the input data from the user
