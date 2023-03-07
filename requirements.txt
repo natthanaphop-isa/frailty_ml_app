@@ -1,11 +1,5 @@
 ##library that you require to run
-Flask
-sklearn
-pandas
 numpy
-matplotlib
-statsmodels
-seaborn
-imblearn
-scipy
 streamlit
+sklearn
+scikit-learn
