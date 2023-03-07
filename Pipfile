@@ -4,16 +4,10 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
 sklearn = "*"
-pandas = "*"
+scikit-learn = "*"
 numpy = "*"
-matplotlib = "*"
-statsmodels = "*"
-seaborn = "*"
-pickle = "*"
-imblearn = "*"
-scipy = "*"
+streamlit = "*"
 
 [dev-packages]
 

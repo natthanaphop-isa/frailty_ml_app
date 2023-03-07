@@ -1,5 +1,5 @@
-##library that you require to run
+## requirement packages
+sklearn
+scikit-learn
 numpy
 streamlit
-scikit-learn
-sklearn
