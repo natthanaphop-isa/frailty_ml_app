@@ -1,49 +1,91 @@
-import pickle
-from flask import Flask, request, app, jsonify, url_for, render_template
+"""
+Created on Tuesday, March 7, 2566 BE (GMT+7) Time in Suthep, Mueang Chiang Mai District, Chiang Mai
+@author: natthanaphop.isa """
+
 import numpy as np
-import pandas as pd 
+import pickle 
+import streamlit as st
 
+# Loading the saved model
+loaded_model = pickle.load(open('/Users/natthanaphopisaradech/Documents/Data_Hub/frailty_ml_app/logistic_model_frailty.sav', 'rb'))
 
-#Creating a basic flask app -> the starting point of the application 
-app = Flask(__name__)
-##load ML 
-model = pickle.load(open('logistic_model_frailty.pkl','rb'))
+# Creating a function for Prediction 
 
+def frailty_prediction(input_data):
+    
+    # changing the input_data to numpy array
+    input_data_as_numpy_array = np.asarray(input_data)
 
-@app.route('/')
-def home():
-    #create a home html page
-    ##it will look at template folder
-    return render_template('home.html')
+    # reshape the array as we are predicting for one instance
+    input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
 
-#create an api
-@app.route('/predict_api', methods = ['POST'])
+    prediction = loaded_model.predict(input_data_reshaped)
+    print(prediction)
 
-def predict_api():
-    data=request.json['data']
-    print(data)
-    print(np.array(list(data.values())).reshape(1,-1))
-    new_data = np.array(list(data.values())).reshape(1,-1)
-    #new_data = pd.json_normalize((data.values()))
-    output = model.predict(new_data)
-    print(output[0])
-    return str(output[0])
+    if (prediction[0] == 0):
+     return 'The person is ROBUST'
+    else:
+     return 'The person is FRAIL'
+    
+def main():
+    # Giving a title
+    st.title('Frailty Classification Using Machine Learning Web App')
 
-@app.route('/predict', methods = ['POST'])
-def predict():
-    ##create a form to get input from users
-    data=[float(x) for x in request.form.values()]
-    final_input = np.array(data).reshape(1,-1)
-    ##if you have data transformation, you do it here
-    output = model.predict(final_input)[0]
-    def result():
-        if str(output) == "1":
-            result = "FRAIL"
-        else:
-            result = "ROBUST"
-        return result
-    end = result()
-    return render_template("home.html", prediction_text = "Frailty Result: You are {}!".format(end))
+    # Getting the input data from the user
+    ## age
+    age = st.number_input("Tell us about your age", step = 1)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+    ## sex
+    display = ("Male", "Female")
+    options = [1,2]
+    sex = st.selectbox("What is your sex?", options, format_func=lambda x: display[x])
+    st.write(sex)
+
+    ## Living Status
+    display = ("Living Alone", "Not Living Alone")
+    options = [1,0]
+    stat = st.selectbox("Living Status: Do you live alone?", options, format_func=lambda x: display[x])
+    st.write(stat)
+
+    ##Underlying disease: Hypertension
+    display = ("Yes", "No")
+    options = [1,0]
+    HT = st.selectbox("Do you have Hypertension?", options, format_func=lambda x: display[x])
+    st.write(HT)
+
+    ##Underlying disease: Hyperlipidemia
+    display = ("Yes", "No")
+    options = [1,0]
+    lipid = st.selectbox("Do you have Hyperlipidemia?", options, format_func=lambda x: display[x])
+    st.write(lipid)
+
+    ##Anthropometric
+    BMI = st.number_input("Body Mass Index (BMI: kg/m^2)")
+    waistcir = st.number_input("Waist Circumference (cm)")
+    calfcir = st.number_input("Calf Circumference (cm)")
+
+    ##exhaustion
+    display = ["0 = rarely or none of the time (<1 day)", 
+    "1 = some or a little of the time (1–2 days)", 
+    "2 = a moderate amount of the time (3–4 days)",
+    "3 =most of the time"]
+    options = [0,0,1,1]
+    lipid = st.selectbox("Level of Exhaustion*", options, format_func=lambda x: display[x])
+    st.wrtie("""*Using the CES–D Depression Scale, the following two statements are read. 
+    (a) I felt that everything I did was an effort; 
+    (b) I could not get going. 
+    The question is asked “How often in the last week did you feel this way?” 
+    """)
+
+    # code for Prediction
+    diagnosis = ''
+
+    # Creating a botton for prediction 
+
+    if st.botton("Frailty Test Result"):
+       diagnosis = frailty_prediction([age,sex,stat,HT,lipid,BMI,waistcir,calfcir,exhaustion])
+
+    st.success(diagnosis)
+
+if __name__ == '__main__':
+   main()
