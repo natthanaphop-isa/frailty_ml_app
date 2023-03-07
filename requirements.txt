@@ -6,7 +6,6 @@ numpy
 matplotlib
 statsmodels
 seaborn
-pickle
 imblearn
 scipy
 streamlit
