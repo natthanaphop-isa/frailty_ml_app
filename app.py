@@ -23,9 +23,9 @@ def frailty_prediction(input_data):
     print(prediction)
 
     if (prediction[0] == 0):
-     return f'You have a LOW probability of frailty. We suggest that you should continue your lifestyle and do not forget to exercise and eat well! :D'
+     return f'You have a LOW probability of becoming FRAIL.'
     else:
-     return 'You have a HIGH probability of frailty. We suggest that you should meet with a doctor for early exercise and nutrition interventions.'
+     return 'You have a HIGH probability of becoming FRAIL. We suggest that you should meet with a doctor for early exercise and nutrition interventions.'
     
 def main():
     # Giving a title
